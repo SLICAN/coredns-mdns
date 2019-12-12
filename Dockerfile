@@ -1,7 +1,7 @@
-FROM registry.svc.ci.openshift.org/openshift/release:golang-1.11 AS builder
+FROM registry.svc.ci.openshift.org/openshift/release:golang-1.13 AS builder
 WORKDIR /go/src/github.com/openshift-metal3/coredns-mdns
 COPY . .
-RUN git clone https://github.com/coredns/coredns /go/src/github.com/coredns/coredns
+RUN git clone --depth 1 --branch v1.5.2 https://github.com/coredns/coredns /go/src/github.com/coredns/coredns
 WORKDIR /go/src/github.com/coredns/coredns
 RUN git apply /go/src/github.com/openshift-metal3/coredns-mdns/containerization/mdns.patch && \
     make
